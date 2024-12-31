@@ -44,5 +44,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", handler)
 	fmt.Println("Listening on port 3000....")
-	http.ListenAndServe(":3000", nil)
+	err := http.ListenAndServe(":3000", nil)
+	if err != nil {
+		fmt.Println("Error starting server:", err)
+	}
 }
