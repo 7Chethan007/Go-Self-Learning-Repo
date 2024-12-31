@@ -51,6 +51,10 @@ func main() {
 	// StripPrefix is used to remove the prefix from the request URL before serving the files.
 	// This is useful when you want to serve files from a subdirectory without exposing the full path to the client.
 	http.Handle("/manuals/", http.StripPrefix("/manuals/", http.FileServer(http.Dir("./manuals"))))
+	// http.Handle register a function that handles a pattern with a handler function.
+	// http.FileServer returns a handler that serves HTTP requests with the contents of the file system rooted at root.
+	// http.Dir returns a file system that reads from the named directory.
+	// http.StripPrefix returns a handler that serves HTTP requests by removing the given prefix from the request URL.
 
 	http.HandleFunc("/", handler)
 	fmt.Println("Listening on port 3000....")
