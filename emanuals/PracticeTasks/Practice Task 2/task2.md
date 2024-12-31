@@ -10,5 +10,5 @@
 
 ## Links
 
-- [news2.html](./news2.html)
-- [emanuals.go](./emanuals.go)
+- [news2.html](../../templates/news2.html)
+- [emanuals.go](../../emanuals.go)
