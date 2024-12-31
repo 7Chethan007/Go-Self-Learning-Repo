@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"time"
 )
 
 // handler handles HTTP requests and sends a response.
@@ -45,14 +46,33 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, pages)
 }
 
+// Option Task 2
+func newsHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("recieved: " + r.URL.Path)
+	t, err := template.ParseFiles("templates/news.html")
+
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		fmt.Fprintf(w, "%v Server Error\n", http.StatusNotFound)
+		fmt.Fprintf(w, "Description: %s\n", err)
+		return
+	}
+	// get todays date
+	date := time.Now().String()
+
+	t.Execute(w, date)
+}
+
 func main() {
+	http.HandleFunc("/", handler)
+	http.HandleFunc("/news", newsHandler)
+
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./css"))))
 	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("./images"))))
 	// StripPrefix is used to remove the prefix from the request URL before serving the files.
 	// This is useful when you want to serve files from a subdirectory without exposing the full path to the client.
 	http.Handle("/manuals/", http.StripPrefix("/manuals/", http.FileServer(http.Dir("./manuals"))))
 
-	http.HandleFunc("/", handler)
 	fmt.Println("Listening on port 3000....")
 	err := http.ListenAndServe(":3000", nil)
 	if err != nil {
