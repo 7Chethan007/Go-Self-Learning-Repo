@@ -42,10 +42,16 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(pages)
 	// scandir is a function that reads the contents of a directory and returns a list of file names.
 
-	t.Execute(w, nil)
+	t.Execute(w, pages)
 }
 
 func main() {
+	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./css"))))
+	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("./images"))))
+	// StripPrefix is used to remove the prefix from the request URL before serving the files.
+	// This is useful when you want to serve files from a subdirectory without exposing the full path to the client.
+	http.Handle("/manuals/", http.StripPrefix("/manuals/", http.FileServer(http.Dir("./manuals"))))
+
 	http.HandleFunc("/", handler)
 	fmt.Println("Listening on port 3000....")
 	err := http.ListenAndServe(":3000", nil)
