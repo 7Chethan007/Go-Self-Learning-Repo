@@ -38,6 +38,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Description: %s\n", err)
 		return
 	}
+	pages, _ := scandir("./manuals")
+	fmt.Println(pages)
+	// scandir is a function that reads the contents of a directory and returns a list of file names.
+
 	t.Execute(w, nil)
 }
 
