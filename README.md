@@ -7,12 +7,12 @@
 The `emanuals` directory contains the first project I did to learn Golang.
 This project is part of the Coursera course "Backend Web Development with Go: Build an E-Manual Server," which I audited. You can find more details about the course and the guided project on Coursera:
 
-- [Backend Web Development with Go: Build an E-Manual Server](https://www.coursera.org/learn/backend-web-development-go)
+[Backend Web Development with Go: Build an E-Manual Server](https://coursera.org/share/68b7256fa7518a4119128a44ccc80035)
 
 Credits to the course and guided project owners:
 
-- Course Instructor: [Coursera Instructor](https://www.coursera.org/instructor)
-- Guided Project: [Coursera Guided Project](https://www.coursera.org/projects)
+- Course Instructor: [Harrison Kong](https://www.coursera.org/instructor/harrisonkong)
+
 
 
 ### Course Objective
