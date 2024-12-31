@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
 )
 
@@ -13,9 +14,31 @@ import (
 // Inside the function:
 // - It prints the received URL path to the console using fmt.Println.
 // - It sends an HTML response with a welcome message using fmt.Fprintf.
+
+// func handler(w http.ResponseWriter, r *http.Request) {
+// 	fmt.Println("recieved: " + r.URL.Path)
+// 	// fmt.Fprintf(w, "<h1>Welocome To Night Owl</h1>")
+// 	t, _ := template.ParseFiles("templates/index.html")
+// 	t.Execute(w, nil)
+// }
+
+// We are using a library called "html/template" to render HTML templates.
+// The template.ParseFiles function reads the content of the file and returns a pointer to a template.
+// The template.Execute function is used to render the template and send the output to the http.ResponseWriter.
+// Right now no error handling is done, but in a real-world application, you should handle errors properly.
+
+// Now lets handle the erros
 func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("recieved: " + r.URL.Path)
-	fmt.Fprintf(w, "<h1>Welocome To Night Owl</h1>")
+	t, err := template.ParseFiles("templates/index.html")
+
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		fmt.Fprintf(w, "%v Server Error\n", http.StatusNotFound)
+		fmt.Fprintf(w, "Description: %s\n", err)
+		return
+	}
+	t.Execute(w, nil)
 }
 
 func main() {
